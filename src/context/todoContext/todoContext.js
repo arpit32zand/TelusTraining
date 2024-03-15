@@ -3,11 +3,15 @@ import { createContext, useContext, useState } from "react";
 export const TodoContext = createContext(null)
 
 export const TodoProvider = ({ children }) => {
-    const [todoList, setTodoList] = useState()
+    const [task, setTask] = useState([])
+    const [completeTask, setCompleteTask] = useState([])
     return (
         <TodoContext.Provider
             value={{
-                todoList, setTodoList
+                task, 
+                setTask,
+                completeTask,
+                setCompleteTask
             }}
         >
             {children}
