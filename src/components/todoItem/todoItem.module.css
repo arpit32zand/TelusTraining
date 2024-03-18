@@ -37,9 +37,20 @@
     cursor: pointer;
 }
 
+.itemText {
+    width: 50%;
+}
+
 .doneItemText {
     text-decoration: line-through;
-    color: rgb(81, 81, 79)
+    color: rgb(81, 81, 79);
+    width: 50%;
+}
+
+.fieldContainer {
+    width: 100%;
+    display: flex;
+    gap: 1rem
 }
 
 .icon {

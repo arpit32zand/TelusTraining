@@ -14,17 +14,30 @@ const AddItem = () => {
     const navigate = useNavigate()
     const { task, setTask } = useTodoList()
 
-    const [text, setText] = useState('')
+    const [email, setEmail] = useState({ value: '', error: false })
+    const [phNo, setPhNo] = useState({ value: null, error: false })
 
     const handleAddItem = () => {
-        const newTask = {
-            id: Date.now(),
-            text: text,
-            completed: false
-        };
-        setTask([...task, newTask]);
-        setText('');
-        navigate('/')
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phoneRegex = /^\d{10}$/;
+        if(emailRegex.test(email.value)) {
+            if(phoneRegex.test(phNo.value)) {
+                const newTask = {
+                    id: Date.now(),
+                    email: email.value,
+                    phNo: phNo.value,
+                    completed: false
+                };
+                setTask([...task, newTask]);
+                setEmail({ value: '', error: false });
+                setPhNo({ value: null, error: false })
+                navigate('/')
+            } else {
+                setPhNo({ value: phNo.value, error: true })
+            }
+        } else {
+            setEmail({ value: email.value, error: true })
+        }        
     }
 
     return (
@@ -32,13 +45,26 @@ const AddItem = () => {
             <Typography variant="h2" className={styles.heading}>
                 ADD TASK
             </Typography>
-            <TextField
-                label="Title"
-                variant="outlined"
-                className={styles.textField}
-                value={text}
-                onChange={(e) => setText(e.target.value)}
-            />
+            <Box className={styles.inputContainer}>
+                <TextField
+                    label="Email"
+                    variant="outlined"
+                    className={styles.textField}
+                    value={email.value}
+                    onChange={(e) => setEmail({ value: e.target.value, error: false })}
+                    error={email.error}
+                    helperText={email.error ? 'Invalid email format' : ''}
+                />
+                <TextField
+                    label="Phone No."
+                    variant="outlined"
+                    className={styles.textField}
+                    value={phNo.value}
+                    onChange={(e) => setPhNo({ value: e.target.value, error: false })}
+                    error={phNo.error}
+                    helperText={phNo.error ? 'Invalid Phone Number' : ''}
+                />
+            </Box>
             <Box className={styles.buttonContainer}>
                 <Button
                     className={styles.cancelButton}

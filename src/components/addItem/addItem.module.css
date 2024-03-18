@@ -17,7 +17,13 @@
 }
 
 .textField {
+    width: 100%;
+}
+
+.inputContainer {
+    display: flex;
     width: 75%;
+    gap: 1rem;
 }
 
 .buttonContainer {

@@ -57,7 +57,10 @@ const TodoItem = ({ selectedTask }) => {
                         onChange={() => handleTaskDone()}
                     />
                 }
-                <Typography className={!selectedTask.completed ? styles.itemText : styles.doneItemText}>{selectedTask.text}</Typography>
+                <Box className={styles.fieldContainer}>
+                    <Typography className={!selectedTask.completed ? styles.itemText : styles.doneItemText}>{selectedTask.email}</Typography>
+                    <Typography className={!selectedTask.completed ? styles.itemText : styles.doneItemText}>{selectedTask.phNo}</Typography>
+                </Box>
             </Box>
             {!selectedTask.completed &&
                 <Box
