@@ -53,6 +53,10 @@
     gap: 1rem
 }
 
+.fieldContainer:first-child .fieldContainer:last-child  {
+    width: 25% !important;
+}
+
 .icon {
     scale: 1.4;
     color: rgb(134, 134, 127);

@@ -1,42 +1,49 @@
 import React from 'react';
 import styles from './todoItem.module.css'
 
+import { useDispatch } from 'react-redux';
+
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Checkbox from '@mui/material/Checkbox';
-
 import { MdDelete } from "react-icons/md";
-import { useTodoList } from '../../context/todoContext/todoContext';
+import { addCompleteTasks, addTasks, removeCompleteTask, removeTask } from '../../redux/actions/actions';
+
 
 const TodoItem = ({ selectedTask }) => {
-    const { task, setTask, completeTask, setCompleteTask } = useTodoList()
+
+    const dispatch = useDispatch();
 
     const handleDelete = () => {
-        setTask(task.filter(item => item.id !== selectedTask.id));
+        dispatch(removeTask(selectedTask.id));
     }
 
     const handleTaskDone = () => {
-        setCompleteTask([
-            ...completeTask,
+        dispatch(addCompleteTasks(
             {
                 id: selectedTask.id,
-                text: selectedTask.text,
+                email: selectedTask.email,
+                note: selectedTask.note,
+                name: selectedTask.name,
+                phNo: selectedTask.phNo,
                 completed: true
             }
-        ])
-        setTask(task.filter(item => item.id !== selectedTask.id));
+        ))
+        dispatch(removeTask(selectedTask.id));
     }
 
     const handleTaskUncheck = () => {
-        setTask([
-            ...task,
+        dispatch(addTasks(
             {
                 id: selectedTask.id,
-                text: selectedTask.text,
+                email: selectedTask.email,
+                note: selectedTask.note,
+                name: selectedTask.name,
+                phNo: selectedTask.phNo,
                 completed: false
             }
-        ])
-        setCompleteTask(completeTask.filter(item => item.id !== selectedTask.id));
+        ))
+        dispatch(removeCompleteTask(selectedTask.id));
     }
 
     return (
@@ -58,8 +65,21 @@ const TodoItem = ({ selectedTask }) => {
                     />
                 }
                 <Box className={styles.fieldContainer}>
-                    <Typography className={!selectedTask.completed ? styles.itemText : styles.doneItemText}>{selectedTask.email}</Typography>
-                    <Typography className={!selectedTask.completed ? styles.itemText : styles.doneItemText}>{selectedTask.phNo}</Typography>
+                    <Typography
+                        className={!selectedTask.completed ? styles.itemText : styles.doneItemText}
+                    >
+                        {selectedTask.name}
+                    </Typography>
+                    <Typography
+                        className={!selectedTask.completed ? styles.itemText : styles.doneItemText}
+                    >
+                        {selectedTask.email}
+                    </Typography>
+                    <Typography
+                        className={!selectedTask.completed ? styles.itemText : styles.doneItemText}
+                    >
+                        {selectedTask.phNo}
+                    </Typography>
                 </Box>
             </Box>
             {!selectedTask.completed &&

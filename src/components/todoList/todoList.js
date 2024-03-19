@@ -1,19 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './todoList.module.css'
 
-import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-
-import { useTodoList } from '../../context/todoContext/todoContext';
+// import Button from '@mui/material/Button';
 
 import TodoItem from '../todoItem/todoItem';
 
 const TodoList = () => {
-    const { task, completeTask } = useTodoList();
-    const navigate = useNavigate()
+
+    const taskList = useSelector(state => state.tasks)
+    const completeTaskList = useSelector(state => state.completeTasks);
 
     return (
         <Box className={styles.container}>
@@ -21,15 +20,15 @@ const TodoList = () => {
                 TODO APP
             </Typography>
             <Box className={styles.listContainer}>
-                {task.length ?
-                    task.map(task =>
+                {taskList.length ?
+                    taskList.map(task =>
                         <TodoItem selectedTask={task} key={task.key} />
                     ) :
                     <Typography className={styles.heading}>
                         Chill!! You have no task for now
                     </Typography>
                 }
-                {completeTask.length ?
+                {completeTaskList.length ?
                     <>
                         <Typography
                             className={styles.heading}
@@ -37,14 +36,14 @@ const TodoList = () => {
                         >
                             Completed Task
                         </Typography>
-                        {completeTask.map(task =>
+                        {completeTaskList.map(task =>
                             <TodoItem selectedTask={task} key={task.key} />
                         )}
                     </> :
                     <></>
                 }
             </Box>
-            <Box className={styles.buttonContainer}>
+            {/* <Box className={styles.buttonContainer}>
                 <Button
                     className={styles.button}
                     variant="contained"
@@ -52,7 +51,7 @@ const TodoList = () => {
                 >
                     Add Task
                 </Button>
-            </Box>
+            </Box> */}
         </Box >
     );
 };
