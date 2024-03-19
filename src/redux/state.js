@@ -1,4 +1,5 @@
 export const initialState = {
     tasks: [],
-    completeTasks: []
+    completeTasks: [],
+    currTask: {}
 }

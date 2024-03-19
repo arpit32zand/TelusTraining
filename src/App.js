@@ -1,14 +1,17 @@
 import './App.css';
+import { Route, Routes } from 'react-router-dom';
 
-import TodoList from './components/todoList/todoList'
-import AddItem from './components/addItem/addItem'
+import TodoList from './screens/todoList/todoList'
+import AddItem from './screens/addItem/addItem'
+import TodoTask from './screens/todoTask/todoTask';
 
 function App() {
   return (
-    <>
-      <AddItem />
-      <TodoList />
-    </>
+    <Routes>
+      <Route path='/' element={<TodoList />} />
+      <Route path='/add-item' element={<AddItem />} />
+      <Route path='/todo-task' element={<TodoTask />} />
+    </Routes>
   );
 }
 

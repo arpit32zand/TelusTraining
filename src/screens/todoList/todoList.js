@@ -1,16 +1,18 @@
 import React from 'react';
 import styles from './todoList.module.css'
 
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-// import Button from '@mui/material/Button';
+import Button from '@mui/material/Button';
 
-import TodoItem from '../todoItem/todoItem';
+import TodoItem from '../../components/todoItem/todoItem';
 
 const TodoList = () => {
 
+    const navigate = useNavigate()
     const taskList = useSelector(state => state.tasks)
     const completeTaskList = useSelector(state => state.completeTasks);
 
@@ -43,7 +45,7 @@ const TodoList = () => {
                     <></>
                 }
             </Box>
-            {/* <Box className={styles.buttonContainer}>
+            <Box className={styles.buttonContainer}>
                 <Button
                     className={styles.button}
                     variant="contained"
@@ -51,7 +53,7 @@ const TodoList = () => {
                 >
                     Add Task
                 </Button>
-            </Box> */}
+            </Box>
         </Box >
     );
 };

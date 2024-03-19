@@ -1,4 +1,4 @@
-import { ADD_COMPLETE_TASK, ADD_NEW_TASK, REMOVE_COMPLETE_TASK, REMOVE_NEW_TASK } from "../actions/constants";
+import { ADD_COMPLETE_TASK, ADD_NEW_TASK, MODIFY_CURRENT_TASK, REMOVE_COMPLETE_TASK, REMOVE_NEW_TASK } from "../actions/constants";
 import { initialState } from "../state";
 
 export const taskReducer = (state = initialState, action) => {
@@ -29,6 +29,11 @@ export const taskReducer = (state = initialState, action) => {
                 ...state,
                 completeTasks: state.completeTasks.filter(task => task.id !== action.payload)
             };
+        case MODIFY_CURRENT_TASK:
+            return {
+                ...state,
+                currTask: action.payload
+            }
         default:
             return state
     }

@@ -2,20 +2,22 @@ import React, { useState } from 'react';
 import styles from './addItem.module.css'
 
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 
-import LongTextArea from '../longTextArea/longTextArea';
-import InputField from '../inputField/inputField';
+import LongTextArea from '../../components/longTextArea/longTextArea';
+import InputField from '../../components/inputField/inputField';
 import { addTasks } from '../../redux/actions/actions';
 
 const AddItem = () => {
+    const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const [email, setEmail] = useState({ value: '', error: false })
-    const [phNo, setPhNo] = useState({ value: null, error: false })
+    const [phNo, setPhNo] = useState({ value: '', error: false })
     const [note, setNote] = useState({ value: '', error: false })
     const [name, setName] = useState({ value: '', error: false })
 
@@ -37,9 +39,10 @@ const AddItem = () => {
                         };
                         dispatch(addTasks(newTask));
                         setEmail({ value: '', error: false });
-                        setPhNo({ value: null, error: false })
+                        setPhNo({ value: '', error: false })
                         setName({ value: '', error: false })
                         setNote({ value: '', error: false })
+                        navigate('/')
                     } else {
                         setPhNo({ value: phNo.value, error: true })
                     }
@@ -87,10 +90,18 @@ const AddItem = () => {
                     value={phNo.value}
                     setValue={value => setPhNo({ value: value, error: false })}
                     error={phNo.error}
+                    type={"number"}
                     helper={'Invalid Phone Number'}
                 />
             </Box>
             <Box className={styles.buttonContainer}>
+                <Button
+                    className={styles.cancelButton}
+                    variant="contained"
+                    onClick={() => navigate('/')}
+                >
+                    Cancel
+                </Button>
                 <Button
                     className={styles.button}
                     variant="contained"
