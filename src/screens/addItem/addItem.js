@@ -21,39 +21,45 @@ const AddItem = () => {
     const [note, setNote] = useState({ value: '', error: false })
     const [name, setName] = useState({ value: '', error: false })
 
-    const handleAddItem = () => {
+    const validate = () => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const phoneRegex = /^\d{10}$/;
         const nameRegex = /^[a-zA-Z\s'-]*$/;
         if (note.value.length < 264 && note.value.length > 5) {
-            if (nameRegex.test(name.value)) {
-                if (emailRegex.test(email.value)) {
-                    if (phoneRegex.test(phNo.value)) {
-                        const newTask = {
-                            id: Date.now(),
-                            name: name.value,
-                            note: note.value,
-                            email: email.value,
-                            phNo: phNo.value,
-                            completed: false
-                        };
-                        dispatch(addTasks(newTask));
-                        setEmail({ value: '', error: false });
-                        setPhNo({ value: '', error: false })
-                        setName({ value: '', error: false })
-                        setNote({ value: '', error: false })
-                        navigate('/')
-                    } else {
-                        setPhNo({ value: phNo.value, error: true })
-                    }
-                } else {
-                    setEmail({ value: email.value, error: true })
-                }
-            } else {
-                setName({ value: name.value, error: true })
-            }
+            setNote({ value: '', error: false })
         } else {
             setNote({ value: note.value, error: true })
+        }
+        if (nameRegex.test(name.value)) {
+            setName({ value: '', error: false })
+        } else {
+            setName({ value: name.value, error: true })
+        }
+        if (emailRegex.test(email.value)) {
+            setEmail({ value: '', error: false });
+        } else {
+            setEmail({ value: email.value, error: true })
+        }
+        if (phoneRegex.test(phNo.value)) {
+            setPhNo({ value: '', error: false })
+        } else {
+            setPhNo({ value: phNo.value, error: true })
+        }
+    }
+
+    const handleAddItem = () => {
+        validate()
+        if (name.error && note.error && email.error && phNo.error) {
+            const newTask = {
+                id: Date.now(),
+                name: name.value,
+                note: note.value,
+                email: email.value,
+                phNo: phNo.value,
+                completed: false
+            };
+            dispatch(addTasks(newTask));
+            navigate('/')
         }
     }
 
@@ -68,7 +74,7 @@ const AddItem = () => {
                     miRows={4}
                     value={note.value}
                     setValue={value => setNote({ value: value, error: false })}
-                    error={name.error}
+                    error={note.error}
                     helper={'Note limit is 5-264 characters'}
                 />
                 <InputField

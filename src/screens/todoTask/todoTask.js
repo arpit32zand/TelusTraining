@@ -52,20 +52,12 @@ export default function TodoTask() {
                 <Typography variant="h5" className={styles.heading}>
                     {currentTask.name}
                 </Typography>
-                {currentTask.completed ?
-                    <Checkbox
-                        className={styles.check}
-                        color="secondary"
-                        checked={checked}
-                        onChange={() => handleTaskUncheck()}
-                    /> :
-                    <Checkbox
-                        className={styles.check}
-                        color="secondary"
-                        checked={checked}
-                        onChange={() => handleTaskDone()}
-                    />
-                }
+                <Checkbox
+                    className={styles.check}
+                    color="secondary"
+                    checked={checked}
+                    onChange={checked ? handleTaskUncheck : handleTaskDone}
+                />
             </Box>
             <Box className={styles.body}>
                 <Typography variant="body1" className={styles.note}>

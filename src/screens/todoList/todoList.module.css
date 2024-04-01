@@ -9,6 +9,7 @@
     align-items: center;
     gap: 1rem;
     background-color: rgb(230, 225, 236);
+    overflow-y: auto;
 }
 
 .heading {

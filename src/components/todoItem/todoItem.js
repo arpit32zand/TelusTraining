@@ -17,7 +17,8 @@ const TodoItem = ({ selectedTask }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const handleDelete = () => {
+    const handleDelete = e => {
+        e.stopPropagation();
         dispatch(removeTask(selectedTask.id));
     }
 
@@ -80,7 +81,7 @@ const TodoItem = ({ selectedTask }) => {
             {!selectedTask.completed &&
                 <Box
                     className={styles.iconContainer}
-                    onClick={handleDelete}
+                    onClick={e => handleDelete(e)}
                 >
                     <MdDelete className={styles.icon} />
                 </Box>
